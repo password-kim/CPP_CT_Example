@@ -1,21 +1,18 @@
 #include <iostream>
-#include <list>
+#include <limits>
 using namespace std;
 
 int main() {
-	int n, sum = 1;
+	int n, a, res, max = INT_MIN, min = INT_MAX;
 	
 	cin >> n;
 	
-	cout << "1";
-	
-	for(int i = 2; i < n; i++){
-		if(n % i == 0)
-		{
-			cout << " + " << i;
-			sum += i;
-		}
+	for(int i = 0; i < n; i++){
+		cin >> a;
+		if(a > max) max = a;
+		if(a < min) min = a;
 	}
 	
-	cout << " = " << sum;
+	res = max - min;
+	cout << res << endl;
 }
