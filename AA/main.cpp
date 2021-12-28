@@ -2,15 +2,21 @@
 using namespace std;
 
 int main() {
-	int n, m, i, sum = 0;
+	int n, m, sum = 0;
 	
 	cin >> n >> m;
 	
-	for(int i = 1; i < n + 1; i++){
-		if(i % m == 0){
-			sum += i;
+	for(int i = n; i < m + 1; i++){
+		sum += i;
+		if(i == m)
+		{
+			cout << i << " = " << sum << endl;
+			
 		}
+		else
+		{
+			cout << i << " + ";
+		}
+			
 	}
-	
-	cout << sum << endl;
 }
