@@ -1,22 +1,21 @@
 #include <iostream>
+#include <list>
 using namespace std;
 
 int main() {
-	int n, m, sum = 0;
+	int n, sum = 1;
 	
-	cin >> n >> m;
+	cin >> n;
 	
-	for(int i = n; i < m + 1; i++){
-		sum += i;
-		if(i == m)
+	cout << "1";
+	
+	for(int i = 2; i < n; i++){
+		if(n % i == 0)
 		{
-			cout << i << " = " << sum << endl;
-			
+			cout << " + " << i;
+			sum += i;
 		}
-		else
-		{
-			cout << i << " + ";
-		}
-			
 	}
+	
+	cout << " = " << sum;
 }
