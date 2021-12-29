@@ -1,18 +1,27 @@
-#include <iostream>
-#include <limits>
-using namespace std;
+#include <stdio.h>
 
 int main() {
-	int n, a, res, max = INT_MIN, min = INT_MAX;
 	
-	cin >> n;
+	char a[100];
 	
-	for(int i = 0; i < n; i++){
-		cin >> a;
-		if(a > max) max = a;
-		if(a < min) min = a;
+	int res=0, cnt=0;
+	
+	scanf("%s", &a);
+	
+	for(int i=0; a[i]!='\0'; i++){
+		if(a[i]>=48 && a[i]<=57){
+			res = res * 10 + (a[i] - 48);
+		}
 	}
 	
-	res = max - min;
-	cout << res << endl;
+	printf("%d\n", res);
+	
+	for(int i=1; i < res+1; i++){
+		if(res%i == 0){
+			cnt++;
+		}
+	}
+	
+	printf("%d", cnt);
+
 }
