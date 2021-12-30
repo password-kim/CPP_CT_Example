@@ -1,34 +1,25 @@
 #include <stdio.h>
-#include <stack>
+#include <iostream>
 using namespace std;
+
+int cnt[50001];
 
 int main() {
 	//freopen("intput.txt", "rt", stdin);
-	char a[31];
 	
-	stack<char> st;
+	int n;
 	
-	scanf("%s", &a);
+	scanf("%d", &n);
 	
-	for(int i = 0; a[i] != '\0'; i++){
-		if(a[i] =='('){
-			st.push(a[i]);
-		}
-		else{
-			if(a[i] == ')' && st.empty()){
-				printf("NO");
-				return 0;
-			}
-			st.pop();
+	for(int i = 1; i <= n; i++){
+		for(int j = i; j <= n; j += i){
+			cnt[j]++;
 		}
 	}
 	
-	if(st.empty()){
-		printf("YES");
+	for(int i = 1; i <= n; i++){
+		printf("%d ", cnt[i]);
 	}
-	else{
-		printf("NO");
-	}
-	return 0;
 
+	return 0;
 }
