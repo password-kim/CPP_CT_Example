@@ -1,31 +1,34 @@
 #include <stdio.h>
+#include <stack>
+using namespace std;
 
 int main() {
-	char a[101], b[101];
+	//freopen("intput.txt", "rt", stdin);
+	char a[31];
 	
-	int p = 0;
+	stack<char> st;
 	
-	gets(a);
+	scanf("%s", &a);
 	
 	for(int i = 0; a[i] != '\0'; i++){
-		if(a[i] != 32){
-			//대문자 판별. 
-			if(a[i] >= 65 && a[i] <=90){
-				a[i] = a[i] + 32; // 대문자를 소문자로 변환. 
-				b[p] = a[i]; // 대문자로 변환한 문자를 b배열에 대입. 
-				p++;
+		if(a[i] =='('){
+			st.push(a[i]);
+		}
+		else{
+			if(a[i] == ')' && st.empty()){
+				printf("NO");
+				return 0;
 			}
-			else{
-				b[p] = a[i]; // 소문자의 경우 그대로 대입. 
-				p++;
-			}
+			st.pop();
 		}
 	}
 	
-	b[p] = '\0'; // 배열의 끝을 알리는 null문자 삽입. 
-	
-	printf("%s", b);
-	
+	if(st.empty()){
+		printf("YES");
+	}
+	else{
+		printf("NO");
+	}
 	return 0;
 
 }
