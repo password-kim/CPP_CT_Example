@@ -3,58 +3,23 @@
 
 int main()
 {
-	char a[100], b[100];
-	int c[52] = {}, d[52] = {}, cnt = 0;
-
-	scanf("%s\n", &a);
-	scanf("%s", &b);
-
-	for (int i = 0; a[i] != '\0'; i++)
-	{
-		if (a[i] >= 65 && a[i] <= 90)
-		{
-			int temp = a[i] - 65;
-			c[temp]++;
+	int n, sum = 0, num, ans;
+	
+	scanf("%d\n", &n);
+	
+	for(int i = 0; i < n; i++){
+		scanf("%d %d", &num, &ans);
+		for(int j = 0; j <= num; j++){
+			sum = sum + j;
 		}
-		else
-		{
-			int temp = a[i] - 71;
-			c[temp]++;
+		if(ans == sum){
+			printf("YES\n");
 		}
-	}
-
-	for (int i = 0; b[i] != '\0'; i++)
-	{
-		if (b[i] >= 65 && b[i] <= 90)
-		{
-			int temp = b[i] - 65;
-			d[temp]++;
+		else{
+			printf("NO\n");
 		}
-		else
-		{
-			int temp = b[i] - 71;
-			d[temp]++;
-		}
+		sum = 0;
 	}
-
-	for (int i = 0; i < 52; i++)
-	{
-		if (c[i] != d[i])
-		{
-			cnt++;
-			break;
-		}
-	}
-
-	if (cnt == 0)
-	{
-		printf("YES");
-	}
-	else
-	{
-		printf("NO");
-	}
-
-
+	
 	return 0;
 }
