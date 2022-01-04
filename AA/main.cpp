@@ -1,25 +1,26 @@
 #include <stdio.h>
-
+#include <climits>
 
 int main()
 {
-	int n, sum = 0, num, ans;
-	
-	scanf("%d\n", &n);
+	int n, m, val, cnt = 0, max = INT_MIN;
+
+	scanf("%d %d", &n, &m);
 	
 	for(int i = 0; i < n; i++){
-		scanf("%d %d", &num, &ans);
-		for(int j = 0; j <= num; j++){
-			sum = sum + j;
-		}
-		if(ans == sum){
-			printf("YES\n");
+		scanf("%d", &val);
+		if(val > m){
+			cnt++;
 		}
 		else{
-			printf("NO\n");
+			cnt = 0;
 		}
-		sum = 0;
+		if(cnt > max){
+			max = cnt;
+		}
 	}
+	
+	printf("%d\n", max);
 	
 	return 0;
 }
