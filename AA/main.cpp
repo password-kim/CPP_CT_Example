@@ -2,36 +2,73 @@
 
 int main()
 {
-	int n;
-	
-	scanf("%d", &n);
-	
-	int a[100], b[100];
-	
-	// 1: 가위 2: 바위 3: 보 
-	for(int i = 0; i < n; i++){
+	int vala = 0, valb = 0;
+
+	int a[10], b[10];
+	char c[10];
+
+	for (int i = 0; i < 10; i++)
+	{
 		scanf("%d", &a[i]);
 	}
-	
-	for(int i = 0; i < n; i++){
+
+	for (int i = 0; i < 10; i++)
+	{
 		scanf("%d", &b[i]);
 	}
-	
-	for(int i = 0; i < n; i++){
-		if(a[i] == b[i]){
-			printf("D");
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (a[i] > b[i])
+		{
+			vala += 3;
+			c[i] = 'A';
 		}
-		else if(a[i] == 1 && b[i] == 3){
-			printf("A");
+		else if (a[i] < b[i])
+		{
+			valb += 3;
+			c[i] = 'B';
 		}
-		else if(a[i] == 2 && b[i] == 1){
-			printf("A");
+		else
+		{
+			vala++;
+			valb++;
+			c[i] = 'D';
 		}
-		else if(a[i] == 3 && b[i] == 2){
-			printf("A");
-		}
-		else{
-			printf("B");
+	}
+
+	printf("%d %d\n", vala, valb);
+
+	if (vala > valb)
+	{
+		printf("A");
+	}
+	else if (vala < valb)
+	{
+		printf("B");
+	}
+	else
+	{
+		for (int i = 9; i >= 0; i--)
+		{
+			if (c[i] == 'A')
+			{
+				printf("A");
+				break;
+			}
+			else if (c[i] == 'B')
+			{
+				printf("B");
+				break;
+			}
+			else
+			{
+				if (i == 0 && c[i] == 'D')
+				{
+					printf("D");
+					break;
+				}
+			}
 		}
 	}
 
