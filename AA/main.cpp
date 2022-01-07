@@ -3,41 +3,31 @@
 
 int main()
 {
-	int n, k, max = INT_MIN, sum = 0;
-
-	int a[100000] = {};
-
-	scanf("%d %d", &n, &k);
-
-	for (int i = 0; i < n; i++)
-	{
+	int n, cnt = 1, max = INT_MIN;
+	
+	int a[100000] = {}; 
+	
+	scanf("%d", &n);
+	
+	for(int i = 0; i < n; i++){
 		scanf("%d", &a[i]);
 	}
 	
-	// 처음 온도의 합을 구해준다. 
-	for (int i = 0; i < k; i++)
-	{
-		sum += a[i];
-	}
-
-	if (sum > max)
-	{
-		max = sum;
-	}
-	
-	// 다음 온도의 합을 구하는 과정. 
-	for (int i = 1; i < n - k + 1; i++)
-	{
-		// 이전 처음 온도를 빼주고 새로운 온도를 더해준다. 
-		sum -= a[i - 1];
-		sum += a[i + k - 1];
-
-		if (sum > max)
-		{
-			max = sum;
+	for(int i = 0; i < n; i++){
+		// 다음 숫자가 현재숫자보다 크거나 같으면 수열길이 1증가. 
+		if(a[i] <= a[i + 1]){
+			cnt++;
+		}
+		// 아닐 경우 수열길이 초기화. 
+		else{
+			cnt = 1;
+		}
+		
+		if(cnt > max){
+			max = cnt;
 		}
 	}
-
+	
 	printf("%d", max);
 
 	return 0;
