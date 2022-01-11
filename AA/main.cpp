@@ -1,27 +1,22 @@
 #include <stdio.h>
-#include <algorithm>
-using namespace std;
 
 int main()
 {
-	int n;
+	int n, a[10000] = {}, res[10000] = {};
 
-	int a[100], res[100] = {};
-	
 	scanf("%d", &n);
-
-	for (int i = 0; i < n; i++)
-	{
+	
+	for(int i = 0; i < n; i++){
 		scanf("%d", &a[i]);
 	}
 	
 	for(int i = 0; i < n; i++){
 		res[i] = 1;
 	}
-
-	for(int i = 0; i < n; i++){
-		for(int j = 0; j < n; j++){
-			if(a[i] < a[j]){
+	
+	for(int i = n -1; i >= 0; i--){
+		for(int j = i - 1; j >= 0; j--){
+			if(a[i] <= a[j]){
 				res[i]++;
 			}
 		}
@@ -30,8 +25,7 @@ int main()
 	for(int i = 0; i < n; i++){
 		printf("%d ", res[i]);
 	}
-
-
-
+	
+	
 	return 0;
 }
