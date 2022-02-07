@@ -2,26 +2,29 @@
 
 int main()
 {
-	int n, cnt = 0, tmp;
+	int n, lt = 1, cur, rt, k = 1, sum = 0;
 	
 	scanf("%d", &n);
 	
-	for(int i = 3; i <= n; i++){
-		tmp = i;
-		while(1){
-			if(tmp % 10 == 3){
-				cnt++;
-			}
-			
-			tmp /= 10;
-			
-			if(tmp == 0){
-				break;
-			}
+	while(lt != 0){
+		lt = n / (k * 10);
+		cur = (n / k) % 10;
+		rt = n % k;
+		
+		if(cur > 3){
+			sum += (lt + 1) * k;
 		}
+		else if(cur < 3){
+			sum += (lt * k);
+		}
+		else{
+			sum += (lt * k) + (rt + 1);
+		}
+		
+		k = k * 10;
 	}
 	
-	printf("%d", cnt);
+	printf("%d", sum);
 
 	return 0;
 }
