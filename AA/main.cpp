@@ -1,80 +1,45 @@
 #include <stdio.h>
 #include <iostream>
-#include <stdlib.h>
-#include <string>
 using namespace std;
 
 int main()
 {
-	int sum = 0, intc = 0, inth = 0;
+	int c = 0, h = 0, pos = 0, res;
 
-	string c, h;
+	char a[10];
 
-	string a;
+	scanf("%s", &a);
 
-	cin >> a;
-
-	for (int i = 0; i < a.size(); i++)
+	if (a[1] == 'H')
 	{
-		int temp = i;
-		if (a[i] == 67)
-		{
-			if (a[i + 1] == 72)
-			{
-				intc = 12;
-			}
-			else
-			{
-				while (a[temp + 1] >= 48 && a[temp + 1] <= 57)
-				{
-					c += a[temp + 1];
-					temp++;
-				}
-			}
-		}
-
-		if (a[i] == 72)
-		{
-			if (a[i + 1] == NULL)
-			{
-				inth = 1;
-			}
-			else
-			{
-				while (a[temp + 1] >= 48 && a[temp + 1] <= 57)
-				{
-					h += a[temp + 1];
-					temp++;
-				}
-			}
-		}
-	}
-
-	if (intc == 12)
-	{
-		if (inth == 1)
-		{
-			sum = intc + inth;
-		}
-		else
-		{
-			sum = intc + atoi(h.c_str());
-		}
+		c = 1;
+		pos = 1;
 	}
 	else
 	{
-		if (inth == 1)
+		for (int i = 1; a[i] != 'H'; i++)
 		{
-			sum = atoi(c.c_str()) * 12 + inth;
+			c = c * 10 + (a[i] - 48);
+
+			pos = i + 1;
 		}
-		else
+	}
+	
+	if(a[pos + 1] == '\0')
+	{
+		h = 1;
+	}
+	else
+	{
+		for (int i = pos + 1; a[i] != '\0'; i++)
 		{
-			sum = atoi(c.c_str()) * 12 + atoi(h.c_str());
+			h = h * 10 + (a[i] - 48);
 		}
 	}
 
-	cout << sum;
-
+	res = c * 12 + h;
+	
+	printf("%d", res);
 
 	return 0;
 }
