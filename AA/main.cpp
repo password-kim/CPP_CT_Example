@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-	int n, idx, temp;
+	int n, temp, cnt = 0;
 
 	int a[100] = {};
 
@@ -17,21 +17,29 @@ int main()
 
 	for (int i = 0; i < n; i++)
 	{
-		idx = i;
 		for (int j = i + 1; j < n; j++)
 		{
-			if(a[j] < a[idx]){
-				idx = j;
+			if (a[j] > a[i])
+			{
+				temp = a[j];
+				a[j] = a[i];
+				a[i] = temp;
 			}
 		}
-		temp = a[idx];
-		a[idx] = a[i];
-		a[i] = temp;
 	}
 
 	for (int i = 0; i < n; i++)
 	{
-		printf("%d ", a[i]);
+		if (a[i] > a[i + 1])
+		{
+			cnt++;
+		}
+
+		if (cnt == 2)
+		{
+			printf("%d", a[i + 1]);
+			break;
+		}
 	}
 
 
