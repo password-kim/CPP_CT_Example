@@ -4,42 +4,36 @@ using namespace std;
 
 int main()
 {
-	int c = 0, h = 0, pos = 0, res;
+	int n, idx, temp;
 
-	char a[10];
+	int a[100] = {};
 
-	scanf("%s", &a);
+	scanf("%d", &n);
 
-	if (a[1] == 'H')
+	for (int i = 0; i < n; i++)
 	{
-		c = 1;
-		pos = 1;
+		scanf("%d", &a[i]);
 	}
-	else
+
+	for (int i = 0; i < n; i++)
 	{
-		for (int i = 1; a[i] != 'H'; i++)
+		idx = i;
+		for (int j = i + 1; j < n; j++)
 		{
-			c = c * 10 + (a[i] - 48);
-
-			pos = i + 1;
+			if(a[j] < a[idx]){
+				idx = j;
+			}
 		}
-	}
-	
-	if(a[pos + 1] == '\0')
-	{
-		h = 1;
-	}
-	else
-	{
-		for (int i = pos + 1; a[i] != '\0'; i++)
-		{
-			h = h * 10 + (a[i] - 48);
-		}
+		temp = a[idx];
+		a[idx] = a[i];
+		a[i] = temp;
 	}
 
-	res = c * 12 + h;
-	
-	printf("%d", res);
+	for (int i = 0; i < n; i++)
+	{
+		printf("%d ", a[i]);
+	}
+
 
 	return 0;
 }
