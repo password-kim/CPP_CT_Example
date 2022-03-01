@@ -1,32 +1,51 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
+
+int a[101], b[101], c[300];
 
 int main()
 {
-	int n, pos;
-	
+	int n, m, i, p1 = 1, p2 = 1, p3 = 1;
+
 	scanf("%d", &n);
+
+	for (i = 1; i <= n; i++)
+	{
+		scanf("%d", &a[i]);
+	}
+
+	scanf("%d", &m);
 	
-	vector<int> is(n+1), os(n+1);
-	
-	for(int i = 1; i <= n; i++){
-		scanf("%d", &is[i]);
+	for (i = 1; i <= m; i++)
+	{
+		scanf("%d", &b[i]);
 	}
 	
-	for(int j = n; j >= 1; j--){
-		pos = j;
-		for(int k = 1; k <= is[j]; k++){
-			os[pos] = os[pos + 1];
-			pos++;
+	while(p1 <= n && p2 <= m){
+		if(a[p1] < b[p2]){
+			c[p3++] = a[p1++];
 		}
-		os[pos] = j;
+		else{
+			c[p3++] = b[p2++];
+		}
 	}
 	
-	for(int m = 1; m <= n; m++){
-		printf("%d ", os[m]);
+	while(p1 <= n){
+		c[p3++] = a[p1++];
 	}
+	
+	while(p2 <= m){
+		c[p3++] = b[p2++];
+	}
+
+	for (i = 1; i < p3; i++)
+	{
+		printf("%d ", c[i]);
+	}
+
 
 	return 0;
 }
