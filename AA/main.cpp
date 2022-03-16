@@ -6,54 +6,24 @@ using namespace std;
 
 int main()
 {
-	int n, i, j, sum, tmp, pos, a[1000], cnt = 0;
-
-	scanf("%d", &n);
-
-	for (i = n; i >= 1; i--)
-	{
-		tmp = i;
-		pos = 0;
-		sum = 0;
-		while (sum <= n)
-		{
-			if (tmp == 0)
-			{
-				break;
+	int a, b = 1, cnt = 0, tmp, i;
+	
+	scanf("%d", &a);
+	
+	tmp = a;
+	a--;
+	while(a>0){
+		b++;
+		a = a - b;
+		if(a % b == 0){
+			for(i = 1; i < b; i++){
+				printf("%d + ", (a / b) + i);
 			}
-			a[pos] = tmp;
-			sum += tmp;
-			if (sum < n)
-			{
-				tmp--;
-				pos++;
-			}
-			else if (sum == n)
-			{
-				if (pos >= 1)
-				{
-					cnt++;
-					for (j = pos; j >= 0; j--)
-					{
-						if (j == 0)
-						{
-							printf("%d = %d\n", a[j], n);
-						}
-						else
-						{
-							printf("%d + ", a[j]);
-						}
-					}
-				}
-				break;
-			}
-			else
-			{
-				break;
-			}
+			printf("%d = %d\n", (a/b) + i, tmp);
+			cnt++;
 		}
 	}
-
+	
 	printf("%d", cnt);
 
 
