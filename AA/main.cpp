@@ -6,26 +6,34 @@ using namespace std;
 
 int main()
 {
-	int a, b = 1, cnt = 0, tmp, i;
+	int n, i, key, lt = 0, rt, mid;
 	
-	scanf("%d", &a);
+	scanf("%d %d", &n, &key);
 	
-	tmp = a;
-	a--;
-	while(a>0){
-		b++;
-		a = a - b;
-		if(a % b == 0){
-			for(i = 1; i < b; i++){
-				printf("%d + ", (a / b) + i);
-			}
-			printf("%d = %d\n", (a/b) + i, tmp);
-			cnt++;
+	vector<int> a(n);
+	
+	for(i = 0; i < n; i++){
+		scanf("%d", &a[i]);
+	}
+	
+	sort(a.begin(), a.end());
+	
+	rt = n - 1;
+	
+	while(lt <= rt){
+		mid = (lt + rt) / 2;
+		
+		if(a[mid] == key){
+			printf("%d\n", mid + 1);
+			return 0;
+		}
+		else if(a[mid] > key){
+			rt = mid - 1;
+		}
+		else{
+			lt = mid + 1;
 		}
 	}
 	
-	printf("%d", cnt);
-
-
 	return 0;
 }
