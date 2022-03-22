@@ -4,50 +4,38 @@
 #include <algorithm>
 using namespace std;
 
-int n;
-
-int Count(int len, int x[]){
-	int i, cnt = 1, pos = x[1];
-	for(i = 2; i <= n; i++){
-		if(x[i] - pos >= len){
-			cnt++;
-			pos = x[i];
-		}
-	}
-	
-	return cnt;
-}
-
 int main()
 {
-	int m, i, lt = 1, rt, mid, res;
+	int n, k, i, pos = 0, bp = 0, cnt = 0;
 	
-	scanf("%d %d", &n, &m);
+	scanf("%d %d", &n, &k);
 	
-	int* x = new int[n + 1];
+	vector<int> prince(n + 1);
+	
+	while(1){
+		pos++;
+		if(pos > n){
+			pos = 1;
+		}
+		if(prince[pos] == 0){
+			cnt++;
+			if(cnt == k){
+				prince[pos] = 1;
+				cnt = 0;
+				bp++;
+			}
+		}
+		if(bp == n - 1){
+			break;
+		}
+	}
 	
 	for(i = 1; i <= n; i++){
-		scanf("%d", &x[i]);
-	}
-	
-	sort(x + 1, x + n + 1);
-	
-	rt = x[n];
-	
-	while(lt <= rt){
-		mid = (lt + rt) / 2;
-		if(Count(mid, x) >= m){
-			res = mid;
-			lt = mid + 1;
-		}
-		else{
-			rt = mid - 1;
+		if(prince[i] == 0){
+			printf("%d\n", i);
+			break;
 		}
 	}
-	
-	printf("%d\n", res);
-	
-	delete[] x;
 	
 	return 0;
 }
