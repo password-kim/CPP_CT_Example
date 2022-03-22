@@ -4,17 +4,14 @@
 #include <algorithm>
 using namespace std;
 
-int a[1001], n;
+int n;
 
-int Count(int s){
-	int i, cnt = 1, sum = 0;
-	for(i = 1; i <= n; i++){
-		if(sum + a[i] > s){
+int Count(int len, int x[]){
+	int i, cnt = 1, pos = x[1];
+	for(i = 2; i <= n; i++){
+		if(x[i] - pos >= len){
 			cnt++;
-			sum = a[i];
-		}
-		else{
-			sum += a[i];
+			pos = x[i];
 		}
 	}
 	
@@ -23,30 +20,34 @@ int Count(int s){
 
 int main()
 {
-	int m, i, lt = 1, rt = 0, mid, res, max = -2147000000;
+	int m, i, lt = 1, rt, mid, res;
 	
 	scanf("%d %d", &n, &m);
 	
+	int* x = new int[n + 1];
+	
 	for(i = 1; i <= n; i++){
-		scanf("%d", &a[i]);
-		rt += a[i];
-		if(a[i] > max){
-			max = a[i];
-		}
+		scanf("%d", &x[i]);
 	}
+	
+	sort(x + 1, x + n + 1);
+	
+	rt = x[n];
 	
 	while(lt <= rt){
 		mid = (lt + rt) / 2;
-		if(mid >= max && Count(mid) <= m){
+		if(Count(mid, x) >= m){
 			res = mid;
-			rt = mid -1;
+			lt = mid + 1;
 		}
 		else{
-			lt = mid + 1;
+			rt = mid - 1;
 		}
 	}
 	
 	printf("%d\n", res);
+	
+	delete[] x;
 	
 	return 0;
 }
