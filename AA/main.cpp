@@ -4,35 +4,51 @@
 #include <algorithm>
 using namespace std;
 
+int a[2001];
+
 int main()
 {
-	int n, k, i, pos = 0, bp = 0, cnt = 0;
+	int n, k, i, p = 0, cnt = 0, tot = 0;
 	
-	scanf("%d %d", &n, &k);
+	scanf("%d", &n);
 	
-	vector<int> prince(n + 1);
+	for(i = 1; i <= n; i++){
+		scanf("%d", &a[i]);
+		tot += a[i];
+	}
+	
+	scanf("%d", &k);
+	
+	if(k >= tot){
+		printf("-1\n");
+		return 0;
+	}
 	
 	while(1){
-		pos++;
-		if(pos > n){
-			pos = 1;
+		p++;
+		if(p > n){
+			p = 1;
 		}
-		if(prince[pos] == 0){
-			cnt++;
-			if(cnt == k){
-				prince[pos] = 1;
-				cnt = 0;
-				bp++;
-			}
+		
+		if(a[p] == 0){
+			continue;
 		}
-		if(bp == n - 1){
-			break;
+		
+		a[p]--;
+		cnt++;
+		
+		if(cnt == k){
+			break;	
 		}
 	}
 	
-	for(i = 1; i <= n; i++){
-		if(prince[i] == 0){
-			printf("%d\n", i);
+	while(1){
+		p++;
+		if(p > n){
+			p = 1;
+		}
+		if(a[p] != 0){
+			printf("%d", p);
 			break;
 		}
 	}
