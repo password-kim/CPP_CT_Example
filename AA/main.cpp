@@ -4,54 +4,38 @@
 #include <algorithm>
 using namespace std;
 
-int a[2001];
+int a[52][52];
+int dx[4] = {-1, 0, 1, 0};
+int dy[4] = {0, 1, 0, -1};
 
 int main()
 {
-	int n, k, i, p = 0, cnt = 0, tot = 0;
+	int n, i, j, k, cnt = 0, flag;
 	
 	scanf("%d", &n);
 	
 	for(i = 1; i <= n; i++){
-		scanf("%d", &a[i]);
-		tot += a[i];
-	}
-	
-	scanf("%d", &k);
-	
-	if(k >= tot){
-		printf("-1\n");
-		return 0;
-	}
-	
-	while(1){
-		p++;
-		if(p > n){
-			p = 1;
-		}
-		
-		if(a[p] == 0){
-			continue;
-		}
-		
-		a[p]--;
-		cnt++;
-		
-		if(cnt == k){
-			break;	
+		for(j = 1; j <= n; j++){
+			scanf("%d", &a[i][j]);
 		}
 	}
 	
-	while(1){
-		p++;
-		if(p > n){
-			p = 1;
-		}
-		if(a[p] != 0){
-			printf("%d", p);
-			break;
+	for(i = 1; i <= n; i++){
+		for(j = 1; j <= n; j++){
+			flag = 0;
+			for(k = 0; k < 4; k++){
+				if(a[i][j] <= a[i+dx[k]][j+dy[k]]){
+					flag = 1;
+					break;
+				}
+			}
+			if(flag == 0){
+				cnt++;
+			}
 		}
 	}
+	
+	printf("%d", cnt);
 	
 	return 0;
 }
