@@ -4,40 +4,35 @@
 #include <algorithm>
 using namespace std;
 
-int dx[4] = {-1, 0, 1, 0};
-int dy[4] = {0, 1, 0, -1};
+int a[10][10];
 
 int main()
 {
-	int n, i, j, k, cnt = 0, flag;
+	int i, j, sum, ave, min, tmp, res;
 	
-	scanf("%d", &n);
-	
-	//                      행크기             열크기 
-	vector<vector<int> > map(n + 2, vector<int>(n + 2, 0));
-	
-	for(i = 1; i <= n; i++){
-		for(j = 1; j <= n; j++){
-			scanf("%d", &map[i][j]);
+	for(i = 1; i <= 9; i++){
+		sum = 0;
+		for(j = 1; j <= 9; j++){
+			scanf("%d", &a[i][j]);
+			sum += a[i][j];
 		}
-	}
-	
-	for(i = 1; i <= n; i++){
-		for(j = 1; j <= n; j++){
-			flag = 0;
-			for(k = 0; k < 4; k++){
-				if(map[i][j] <= map[i+dx[k]][j+dy[k]]){
-					flag = 1;
-					break;
+		ave = (sum / 9.0) + 0.5;
+		printf("%d ", ave);
+		min = 2147000000;
+		for(j = 1; j <= 9; j++){
+			tmp = abs(a[i][j] - ave);
+			if(tmp < min){
+				min = tmp;
+				res = a[i][j];
+			}
+			else if(tmp == min){
+				if(a[i][j] > res){
+					res = a[i][j];
 				}
 			}
-			if(flag == 0){
-				cnt++;
-			}
 		}
+		printf("%d\n", res);
 	}
-	
-	printf("%d", cnt);
 	
 	return 0;
 }
