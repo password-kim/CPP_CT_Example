@@ -4,35 +4,46 @@
 #include <algorithm>
 using namespace std;
 
-int a[10][10];
+int map[11][11];
+
+int a[11];
 
 int main()
 {
-	int i, j, sum, ave, min, tmp, res;
-	
-	for(i = 1; i <= 9; i++){
-		sum = 0;
-		for(j = 1; j <= 9; j++){
-			scanf("%d", &a[i][j]);
-			sum += a[i][j];
-		}
-		ave = (sum / 9.0) + 0.5;
-		printf("%d ", ave);
-		min = 2147000000;
-		for(j = 1; j <= 9; j++){
-			tmp = abs(a[i][j] - ave);
-			if(tmp < min){
-				min = tmp;
-				res = a[i][j];
-			}
-			else if(tmp == min){
-				if(a[i][j] > res){
-					res = a[i][j];
-				}
-			}
-		}
-		printf("%d\n", res);
+	int n, i, j, sum = 0;
+
+	scanf("%d", &n);
+
+	for (i = 1; i <= n; i++)
+	{
+		scanf("%d", &a[i]);
 	}
 	
+	for(i = 1; i <= n; i++){
+		for(j = 1; j <= n; j++){
+			map[j][i] = a[i];
+		}
+	}
+	
+	for(i = n; i >= 1; i--){
+		scanf("%d", &a[i]);
+	}
+	
+	for(i = 1; i <= n; i++){
+		for(j = 1; j <= n; j++){
+			if(map[i][j] > a[i]){
+				map[i][j] = a[i];
+			}
+		}
+	}
+	
+	for(i = 1; i <= n; i++){
+		for(j = 1; j <= n; j++){
+			sum += map[i][j];
+		}
+	}
+	
+	printf("%d", sum);
+
 	return 0;
 }
