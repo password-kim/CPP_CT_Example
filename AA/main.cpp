@@ -4,32 +4,28 @@
 #include <algorithm>
 using namespace std;
 
-int map[52][52];
+int map[702][702], dy[702][702];
 
 int main()
 {
-	int h, w, t1, t2, i, j, k, s, sum, max = -2147000000;
+	int h, w, t1, t2, i, j, tmp, max = -2147000000;
 	
 	scanf("%d %d", &h, &w);
 	
 	for(i = 1; i <= h; i++){
 		for(j = 1; j <= w; j++){
 			scanf("%d", &map[i][j]);
+			dy[i][j] = dy[i - 1][j] + dy[i][j - 1] - dy[i - 1][j - 1] + map[i][j];
 		}
 	}
 	
 	scanf("%d %d", &t1, &t2);
 	
-	for(i = 1; i <= h - t1 + 1; i++){
-		for(j = 1; j <= w - t2 + 1; j++){
-			sum = 0;
-			for(k = i; k < i + t1; k++){
-				for(s = j; s < j + t2; s++){
-					sum += map[k][s];
-				}
-			}
-			if(sum > max){
-				max = sum;
+	for(i = t1; i <= h; i++){
+		for(j = t2; j <= w; j++){
+			tmp = dy[i][j] - dy[i - t1][j] - dy[i][j - t2] + dy[i - t1][j - t2];
+			if(tmp > max){
+				max = tmp;
 			}
 		}
 	}
