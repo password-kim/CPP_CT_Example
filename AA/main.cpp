@@ -4,33 +4,43 @@
 #include <algorithm>
 using namespace std;
 
-int map[702][702], dy[702][702];
+int a[1501];
 
 int main()
-{
-	int h, w, t1, t2, i, j, tmp, max = -2147000000;
+{	
+	int n, i, p2, p3, p5, min = 2147000000;
 	
-	scanf("%d %d", &h, &w);
+	scanf("%d", &n);
 	
-	for(i = 1; i <= h; i++){
-		for(j = 1; j <= w; j++){
-			scanf("%d", &map[i][j]);
-			dy[i][j] = dy[i - 1][j] + dy[i][j - 1] - dy[i - 1][j - 1] + map[i][j];
+	a[1] = 1;
+	
+	p2 = p3 = p5 = 1;
+	
+	for(i = 2; i <= n; i++){
+		if(a[p2] * 2 < a[p3] * 3){
+			min = a[p2] * 2;
 		}
+		else{
+			min = a[p3] * 3;
+		}
+		if(a[p5] * 5 < min){
+			min = a[p5] * 5;
+		}
+		
+		if(a[p2] * 2 == min){
+			p2++;
+		}
+		if(a[p3] * 3 == min){
+			p3++;
+		}
+		if(a[p5] * 5 == min){
+			p5++;
+		}
+		a[i] = min;
 	}
 	
-	scanf("%d %d", &t1, &t2);
+	printf("%d\n", a[n]);
 	
-	for(i = t1; i <= h; i++){
-		for(j = t2; j <= w; j++){
-			tmp = dy[i][j] - dy[i - t1][j] - dy[i][j - t2] + dy[i - t1][j - t2];
-			if(tmp > max){
-				max = tmp;
-			}
-		}
-	}
-	
-	printf("%d", max);
 
 	return 0;
 }
