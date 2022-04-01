@@ -1,46 +1,30 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include <stack>
 #include <algorithm>
 using namespace std;
 
-int a[1501];
 
 int main()
 {	
-	int n, i, p2, p3, p5, min = 2147000000;
+	int n, k;
 	
-	scanf("%d", &n);
+	stack<int> s;
 	
-	a[1] = 1;
+	char str[20] = "0123456789ABCDEF";
 	
-	p2 = p3 = p5 = 1;
+	scanf("%d %d", &n, &k);
 	
-	for(i = 2; i <= n; i++){
-		if(a[p2] * 2 < a[p3] * 3){
-			min = a[p2] * 2;
-		}
-		else{
-			min = a[p3] * 3;
-		}
-		if(a[p5] * 5 < min){
-			min = a[p5] * 5;
-		}
-		
-		if(a[p2] * 2 == min){
-			p2++;
-		}
-		if(a[p3] * 3 == min){
-			p3++;
-		}
-		if(a[p5] * 5 == min){
-			p5++;
-		}
-		a[i] = min;
+	while(n > 0){
+		s.push(n % k);
+		n /= k;
 	}
 	
-	printf("%d\n", a[n]);
+	while(s.empty() == false){
+		printf("%c", str[s.top()]);
+		s.pop();
+	}
 	
-
 	return 0;
 }
