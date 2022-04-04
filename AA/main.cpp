@@ -8,22 +8,35 @@ using namespace std;
 
 int main()
 {	
-	int n, k;
+	stack<char> s;
 	
-	stack<int> s;
+	char a[50];
 	
-	char str[20] = "0123456789ABCDEF";
+	int i, flag = 1;
 	
-	scanf("%d %d", &n, &k);
+	scanf("%s", &a);
 	
-	while(n > 0){
-		s.push(n % k);
-		n /= k;
+	for(i = 0; a[i] != '\0'; i++){
+		if(a[i] == '('){
+			s.push(a[i]);
+		}
+		else{
+			if(s.empty()){
+				printf("NO\n");
+				flag = 0;
+				break;
+			}
+			else{
+				s.pop();
+			}
+		}
 	}
 	
-	while(s.empty() == false){
-		printf("%c", str[s.top()]);
-		s.pop();
+	if(s.empty() && flag == 1){
+		printf("YES\n");
+	}
+	else if (!s.empty() && flag == 1){
+		printf("NO\n");
 	}
 	
 	return 0;
