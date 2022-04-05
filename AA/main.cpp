@@ -5,39 +5,46 @@
 #include <algorithm>
 using namespace std;
 
-
 int main()
 {	
-	stack<char> s;
+	stack<int> s;
 	
-	char a[50];
+	int i, j = 1, n, m;
 	
-	int i, flag = 1;
+	scanf("%d", &n);
 	
-	scanf("%s", &a);
+	vector<char> str;
 	
-	for(i = 0; a[i] != '\0'; i++){
-		if(a[i] == '('){
-			s.push(a[i]);
-		}
-		else{
+	for(i = 1; i <= n; i++){
+		scanf("%d", &m);
+		s.push(m);
+		str.push_back('P');
+		while(i){
 			if(s.empty()){
-				printf("NO\n");
-				flag = 0;
 				break;
 			}
-			else{
+			
+			if(j == s.top()){
 				s.pop();
+				j++;
+				str.push_back('O');
+			}
+			else{
+				break;
 			}
 		}
 	}
 	
-	if(s.empty() && flag == 1){
-		printf("YES\n");
+	if(!s.empty()){
+		printf("impossible\n");
 	}
-	else if (!s.empty() && flag == 1){
-		printf("NO\n");
+	else{
+		for(i = 0; i < str.size(); i++){
+			printf("%c", str[i]);
+		}
 	}
+	
+	
 	
 	return 0;
 }
