@@ -5,46 +5,35 @@
 #include <algorithm>
 using namespace std;
 
+stack<int> s;
+
+void stackRec(int x){
+	if(x == 1){
+		s.push(x);
+		return ;
+	}
+	else{
+		s.push(x);
+		stackRec(x - 1);
+	}
+}
+
 int main()
 {	
-	stack<int> s;
-	
-	int i, j = 1, n, m;
+	int n, res[21], i;
 	
 	scanf("%d", &n);
 	
-	vector<char> str;
+	stackRec(n);
 	
 	for(i = 1; i <= n; i++){
-		scanf("%d", &m);
-		s.push(m);
-		str.push_back('P');
-		while(i){
-			if(s.empty()){
-				break;
-			}
-			
-			if(j == s.top()){
-				s.pop();
-				j++;
-				str.push_back('O');
-			}
-			else{
-				break;
-			}
-		}
+		res[i] = s.top();
+		s.pop();
 	}
 	
-	if(!s.empty()){
-		printf("impossible\n");
+	for(i = 1; i <= n; i++){
+		printf("%d ", res[i]);
 	}
-	else{
-		for(i = 0; i < str.size(); i++){
-			printf("%c", str[i]);
-		}
-	}
-	
-	
 	
 	return 0;
 }
