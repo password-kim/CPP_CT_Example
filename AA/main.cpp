@@ -5,20 +5,20 @@
 #include <algorithm>
 using namespace std;
 
-void D(int x){
-	if(x == 0) return;
+void D(int v){
+	if(v > 7) return;
 	else{
-		D(x / 2);
-		printf("%d", x % 2);
+		// printf("%d ", v); <= 전위순회 
+		D(v * 2);
+		// printf("%d ", v); <= 중위순회 
+		D(v * 2 + 1);
+		// printf("%d ", v); <= 후위순회 
 	}
 }
 
 int main()
 {	
-	int n;
-	scanf("%d", &n);
-	
-	D(n);
+	D(1);
 	
 	return 0;
 }
