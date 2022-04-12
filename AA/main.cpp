@@ -5,31 +5,40 @@
 #include <algorithm>
 using namespace std;
 
-int n, ch[11];
+int n, a[11], total = 0;
+bool flag = false;
 
-void DFS(int L){
-	int i;
+void DFS(int L, int sum){
+	if(flag == true) return;
 	if(L == n + 1){
-		for(i = 1; i <= n; i++){
-			if(ch[i] == 1){
-				printf("%d ", i);
-			}
+		if(sum == (total - sum)){
+			flag = true;
 		}
-		puts("");
 	}
 	else{
-		ch[L] = 1;
-		DFS(L + 1);
-		ch[L] = 0;
-		DFS(L + 1);
+		DFS(L + 1, sum + a[L]);
+		DFS(L + 1, sum);
 	}
-	
 }
 
 int main()
 {	
+	int i;
 	scanf("%d", &n);
-	DFS(1);
+	
+	for(i = 1; i <= n; i++){
+		scanf("%d", &a[i]);
+		total += a[i];
+	}
+	
+	DFS(1, 0);
+	
+	if(flag){
+		printf("YES\n");
+	}
+	else{
+		printf("NO\n");
+	}
 	
 	return 0;
 }
