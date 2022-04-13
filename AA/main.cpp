@@ -5,18 +5,17 @@
 #include <algorithm>
 using namespace std;
 
-int n, a[11], total = 0;
-bool flag = false;
+int n, m, a[11], cnt = 0;
 
 void DFS(int L, int sum){
-	if(flag == true) return;
 	if(L == n + 1){
-		if(sum == (total - sum)){
-			flag = true;
+		if(sum == m){
+			cnt++;
 		}
 	}
 	else{
 		DFS(L + 1, sum + a[L]);
+		DFS(L + 1, sum - a[L]);
 		DFS(L + 1, sum);
 	}
 }
@@ -24,20 +23,19 @@ void DFS(int L, int sum){
 int main()
 {	
 	int i;
-	scanf("%d", &n);
+	scanf("%d %d", &n, &m);
 	
 	for(i = 1; i <= n; i++){
 		scanf("%d", &a[i]);
-		total += a[i];
 	}
 	
 	DFS(1, 0);
 	
-	if(flag){
-		printf("YES\n");
+	if(cnt == 0){
+		printf("-1\n");
 	}
 	else{
-		printf("NO\n");
+		printf("%d\n", cnt);
 	}
 	
 	return 0;
