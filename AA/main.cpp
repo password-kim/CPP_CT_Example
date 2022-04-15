@@ -5,37 +5,23 @@
 #include <algorithm>
 using namespace std;
 
-int n, m, a[11], cnt = 0;
-
-void DFS(int L, int sum){
-	if(L == n + 1){
-		if(sum == m){
-			cnt++;
-		}
-	}
-	else{
-		DFS(L + 1, sum + a[L]);
-		DFS(L + 1, sum - a[L]);
-		DFS(L + 1, sum);
-	}
-}
+int map[51][51];
 
 int main()
 {	
-	int i;
+	int n, m, i, j, a, b, c;
 	scanf("%d %d", &n, &m);
 	
+	for(i = 1; i <= m; i++){
+		scanf("%d %d %d", &a, &b, &c);
+		map[a][b] = c;
+	}
+	
 	for(i = 1; i <= n; i++){
-		scanf("%d", &a[i]);
-	}
-	
-	DFS(1, 0);
-	
-	if(cnt == 0){
-		printf("-1\n");
-	}
-	else{
-		printf("%d\n", cnt);
+		for(j = 1; j <= n; j++){
+			printf("%d ", map[i][j]);
+		}
+		printf("\n");
 	}
 	
 	return 0;
