@@ -5,19 +5,26 @@
 #include <algorithm>
 using namespace std;
 
-int map[30][30], ch[30], cnt = 0, n;
+int map[9][9], ch[9][9], cnt = 0;
 
-void DFS(int v){
-	int i;
-	if(v == n){
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {-1, 0, 1, 0};
+
+void DFS(int x, int y){
+	int i, xx, yy;
+	if(x == 7 && y == 7){
 		cnt++;
 	}
 	else{
-		for(i = 1; i <= n; i++){
-			if(map[v][i] == 1 && ch[i] == 0){
-				ch[i] = 1;
-				DFS(i);
-				ch[i] = 0;
+		for(i = 0; i < 4; i++){
+			xx = x + dx[i];
+			yy = y + dy[i];
+			if(xx < 1 || xx > 7 || yy < 1 || yy > 7) continue;
+			
+			if(map[xx][yy] == 0 && ch[xx][yy] == 0){
+				ch[xx][yy] = 1;
+				DFS(xx, yy);
+				ch[xx][yy] = 0;
 			}
 		}
 	}
@@ -25,17 +32,17 @@ void DFS(int v){
 
 int main()
 {	
-	int m, i, a, b;
-	scanf("%d %d", &n, &m);
+	int i, j;
 	
-	for(i = 1; i <= m; i++){
-		scanf("%d %d", &a, &b);
-		map[a][b] = 1;
+	for(i = 1; i <= 7; i++){
+		for(j = 1; j <= 7; j++){
+			scanf("%d", &map[i][j]);
+		}
 	}
 	
-	ch[1] = 1;
+	ch[1][1] = 1;
 	
-	DFS(1);
+	DFS(1,1);
 	
 	printf("%d\n", cnt);
 	
