@@ -5,9 +5,9 @@
 #include <algorithm>
 using namespace std;
 
-int n, cost = 2147000000;
+int ch[30], n, cost = 2147000000;
 
-int map[30][30], ch[30];
+vector< pair<int, int> > map[30];
 
 void DFS(int v, int sum){
 	int i;
@@ -17,11 +17,11 @@ void DFS(int v, int sum){
 		}
 	}
 	else{
-		for(i = 1; i <= n; i++){
-			if(map[v][i] > 0 && ch[i] == 0){
-				ch[i] = 1;
-				DFS(i, sum + map[v][i]);
-				ch[i] = 0;
+		for(i = 0; i < map[v].size(); i++){
+			if(ch[map[v][i].first] == 0){
+				ch[map[v][i].first] = 1;
+				DFS(map[v][i].first, sum + map[v][i].second);
+				ch[map[v][i].first] = 0;
 			}
 		}
 	}
@@ -34,7 +34,7 @@ int main()
 	
 	for(i = 1; i <= m; i++){
 		scanf("%d %d %d", &a, &b, &c);
-		map[a][b] = c;
+		map[a].push_back(make_pair(b, c));
 	}
 	
 	ch[1] = 1;
