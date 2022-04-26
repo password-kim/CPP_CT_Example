@@ -5,43 +5,31 @@
 #include <algorithm>
 using namespace std;
 
-int ch[30], n, cost = 2147000000;
+int Q[100], front = -1, back = -1, ch[10];
 
-vector< pair<int, int> > map[30];
-
-void DFS(int v, int sum){
-	int i;
-	if(v == n){
-		if(sum < cost){
-			cost = sum;
-		}
-	}
-	else{
-		for(i = 0; i < map[v].size(); i++){
-			if(ch[map[v][i].first] == 0){
-				ch[map[v][i].first] = 1;
-				DFS(map[v][i].first, sum + map[v][i].second);
-				ch[map[v][i].first] = 0;
-			}
-		}
-	}
-}
+vector<int> map[10];
 
 int main()
 {	
-	int m, i, a, b, c;
-	scanf("%d %d", &n, &m);
-	
-	for(i = 1; i <= m; i++){
-		scanf("%d %d %d", &a, &b, &c);
-		map[a].push_back(make_pair(b, c));
+	int i, a, b, x;
+	for(i = 1; i <= 6; i++){
+		scanf("%d %d", &a, &b);
+		map[a].push_back(b);
+		map[b].push_back(a);
 	}
-	
+	Q[++back] = 1;
 	ch[1] = 1;
 	
-	DFS(1, 0);
-	
-	printf("%d\n", cost);
+	while(front < back){
+		x = Q[++front];
+		printf("%d ", x);
+		for(i = 0; i < map[x].size(); i++){
+			if(ch[map[x][i]] == 0){
+				ch[map[x][i]] = 1;
+				Q[++back] = map[x][i];
+			}
+		}
+	}
 	
 	return 0;
 }
