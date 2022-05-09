@@ -8,27 +8,28 @@ using namespace std;
 
 int main()
 {	
-	int n, k, i;
-	scanf("%d %d", &n, &k);
+	int a;
+	priority_queue<int> pQ;
 	
-	queue<int> Q;
-	for(i = 1; i <= n; i++){
-		Q.push(i);
-	}
-	
-	while(!Q.empty()){
-		for(i = 1; i < k; i++){
-			Q.push(Q.front());
-			Q.pop();
+	while(true){
+		scanf("%d", &a);
+		if(a == -1){
+			break;
 		}
-		Q.pop();
 		
-		if(Q.size() == 1){
-			printf("%d\n", Q.front());
-			Q.pop();
+		if(a == 0){
+			if(pQ.empty()){
+				printf("-1\n");
+			}
+			else{
+				printf("%d\n", pQ.top());
+				pQ.pop();
+			}
+		}
+		else{
+			pQ.push(a);
 		}
 	}
-	
 	
 	return 0;
 }
