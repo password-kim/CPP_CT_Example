@@ -22,12 +22,12 @@ int main()
 				printf("-1\n");
 			}
 			else{
-				printf("%d\n", pQ.top());
+				printf("%d\n", -pQ.top());
 				pQ.pop();
 			}
 		}
 		else{
-			pQ.push(a);
+			pQ.push(-a);
 		}
 	}
 	
