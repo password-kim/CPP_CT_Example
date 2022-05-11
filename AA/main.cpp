@@ -6,30 +6,49 @@
 #include <queue>
 using namespace std;
 
+struct Data{
+	int money, when;
+	Data(int a, int b){
+		money = a;
+		when = b;
+	}
+	
+	bool operator<(const Data &b){
+		return when > b.when;
+	}
+};
+
 int main()
 {	
-	int a;
+	int n, i, j, a, b, res = 0, max = -2147000000;
+	scanf("%d", &n);
+	
+	vector<Data> T;
 	priority_queue<int> pQ;
 	
-	while(true){
-		scanf("%d", &a);
-		if(a == -1){
-			break;
+	for(i = 1; i <= n; i++){
+		scanf("%d %d", &a, &b);
+		T.push_back(Data(a, b));
+		if(b > max){
+			max = b;
 		}
+	}
 		
-		if(a == 0){
-			if(pQ.empty()){
-				printf("-1\n");
-			}
-			else{
-				printf("%d\n", -pQ.top());
-				pQ.pop();
-			}
+	sort(T.begin(), T.end());
+	
+	j = 0;
+	for(i = max; i >= 1; i--){
+		for( ; j < n; j++){
+			if(T[j].when < i) break;
+			pQ.push(T[j].money);
 		}
-		else{
-			pQ.push(-a);
+		if(!pQ.empty()){
+			res += pQ.top();
+			pQ.pop();
 		}
 	}
 	
-	return 0;
+	printf("%d\n", res);
+	
+	
 }
