@@ -6,25 +6,41 @@
 #include <queue>
 using namespace std;
 
-int dy[21][21];
+int unf[1001];
 
-int DFS(int n, int r){
-	if(dy[n][r] > 0){
-		return dy[n][r];
-	}
-	if(n == r || r == 0){
-		return 1;
-	}
-	else{
-		return dy[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r);
+int Find(int v){
+	if(v == unf[v]) return v;
+	else return unf[v] = Find(unf[v]);
+}
+
+void Union(int a, int b){
+	a = Find(a);
+	b = Find(b);
+	if(a != b){
+		unf[a] = b;
 	}
 }
 
 int main()
 {	
-	int n, r;
-	scanf("%d %d", &n, &r);
-	printf("%d\n", DFS(n, r));
+	ios_base::sync_with_stdio(false);
+	
+	int n, m, a, b;
+	cin >> n >> m;
+	
+	for(int i = 1; i <= n; i++){
+		unf[i] = i;
+	}
+	for(int i = 1; i <= m; i++){
+		cin >> a >> b;
+		Union(a, b);
+	}
+	
+	cin >> a >> b;
+	a = Find(a);
+	b = Find(b);
+	if(a == b) cout << "YES";
+	else cout << "NO";	
 	
 	return 0;
 }
