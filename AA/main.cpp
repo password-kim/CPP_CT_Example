@@ -6,63 +6,65 @@
 #include <queue>
 using namespace std;
 
-int unf[10001];
+int ch[30];
 
 struct Edge{
-	int v1;
-	int v2;
-	int val;
-	Edge(int a, int b, int c){
-		v1 = a;
-		v2 = b;
-		val = c;
+	int vex;
+	int dis;
+	Edge(int a, int b){
+		vex = a;
+		dis = b;
 	}
 	
-	bool operator<(Edge &b){
-		return val < b.val;
+	bool operator<(const Edge &b)const{
+		return dis > b.dis;
 	}
 };
 
-int Find(int v){
-	if(v == unf[v]) return v;
-	else return unf[v] = Find(unf[v]);
-}
-
-void Union(int a, int b){
-	a = Find(a);
-	b = Find(b);
-	if(a != b){
-		unf[a] = b;
-	}
-}
-
 int main()
 {	
-	vector<Edge> Ed;
+	ios_base::sync_with_stdio(false);
+	
+	priority_queue<Edge> Q;
+	vector< pair<int, int> > graph[30];
 	
 	int i, n, m, a, b, c, res = 0;
-	scanf("%d %d", &n, &m);
+	cin >> n >> m;
 	
-	for(i = 1; i <= n; i++){
-		unf[i] = i;
-	}
+	vector<int> dist(n + 1, 2147000000);
 	
 	for(i = 1; i <= m; i++){
-		scanf("%d %d %d", &a, &b, &c);
-		Ed.push_back(Edge(a, b, c));
+		cin >> a >> b >> c;
+		graph[a].push_back(make_pair(b, c));
 	}
 	
-	sort(Ed.begin(), Ed.end());
-	for(i = 0; i < m; i++){
-		int fa = Find(Ed[i].v1);
-		int fb = Find(Ed[i].v2);
-		if(fa != fb){
-			res += Ed[i].val;
-			Union(Ed[i].v1, Ed[i].v2);
+	Q.push(Edge(1, 0));
+	dist[1] = 0;
+	
+	while(!Q.empty()){
+		int now = Q.top().vex;
+		int cost = Q.top().dis;
+		Q.pop();
+		if(cost > dist[now]) continue;
+		for(i = 0; i < graph[now].size(); i++){
+			int next = graph[now][i].first;
+			int nextDis = cost + graph[now][i].second;
+			if(dist[next] > nextDis){
+				dist[next] = nextDis;
+				Q.push(Edge(next, nextDis));
+			}
 		}
 	}
 	
-	printf("%d\n", res);
+	for(i = 2; i <= n; i++){
+		if(dist[i] != 2147000000){
+			cout << i << " : " << dist[i] << endl;
+		}
+		else{
+			cout << i << " : impossible" << endl;
+		}
+	}
+	
 	
 	return 0;
 }
