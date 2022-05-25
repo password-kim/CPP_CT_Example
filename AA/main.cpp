@@ -6,65 +6,60 @@
 #include <queue>
 using namespace std;
 
-int ch[30];
+int dist[101];
 
 struct Edge{
-	int vex;
-	int dis;
-	Edge(int a, int b){
-		vex = a;
-		dis = b;
-	}
-	
-	bool operator<(const Edge &b)const{
-		return dis > b.dis;
+	int s;
+	int e;
+	int val;
+	Edge(int a, int b, int c){
+		s = a;
+		e = b;
+		val = c;
 	}
 };
 
 int main()
 {	
-	ios_base::sync_with_stdio(false);
-	
-	priority_queue<Edge> Q;
-	vector< pair<int, int> > graph[30];
-	
-	int i, n, m, a, b, c, res = 0;
-	cin >> n >> m;
-	
-	vector<int> dist(n + 1, 2147000000);
+	vector<Edge> Ed;
+	int i, n, m, a, b, c, j, s, e;
+	scanf("%d %d", &n, &m);
 	
 	for(i = 1; i <= m; i++){
-		cin >> a >> b >> c;
-		graph[a].push_back(make_pair(b, c));
+		scanf("%d %d %d", &a, &b, &c);
+		Ed.push_back(Edge(a, b, c));
 	}
 	
-	Q.push(Edge(1, 0));
-	dist[1] = 0;
+	for(i = 1; i <= n; i++){
+		dist[i] = 2147000000;
+	}
 	
-	while(!Q.empty()){
-		int now = Q.top().vex;
-		int cost = Q.top().dis;
-		Q.pop();
-		if(cost > dist[now]) continue;
-		for(i = 0; i < graph[now].size(); i++){
-			int next = graph[now][i].first;
-			int nextDis = cost + graph[now][i].second;
-			if(dist[next] > nextDis){
-				dist[next] = nextDis;
-				Q.push(Edge(next, nextDis));
+	scanf("%d %d", &s, &e);
+	
+	dist[s] = 0;
+	
+	for(i = 1; i < n; i++){
+		for(j = 0; j < Ed.size(); j++){
+			int u = Ed[j].s;
+			int v = Ed[j].e;
+			int w = Ed[j].val;
+			if(dist[u] != 2147000000 && dist[u] + w < dist[v]){
+				dist[v] = dist[u] + w;
 			}
 		}
 	}
 	
-	for(i = 2; i <= n; i++){
-		if(dist[i] != 2147000000){
-			cout << i << " : " << dist[i] << endl;
-		}
-		else{
-			cout << i << " : impossible" << endl;
+	for(j = 0; j < Ed.size(); j++){
+		int u = Ed[j].s;
+		int v = Ed[j].e;
+		int w = Ed[j].val;
+		if(dist[u] != 2147000000 && dist[u] + w < dist[v]){
+			printf("-1\n");
+			exit(0);
 		}
 	}
 	
+	printf("%d\n", dist[e]);
 	
 	return 0;
 }
