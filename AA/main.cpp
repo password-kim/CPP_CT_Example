@@ -6,21 +6,34 @@
 #include <queue>
 using namespace std;
 
-int n, r, cnt = 0;
-int a[20], res[20], ch[20];
+int a[10], ch[10];
 
-int DFS(int L){
-	if(L == r){
-		for(int j = 0; j < L; j++){
-			printf("%d ", res[j]);
+int send(){
+	return a[6] * 1000 + a[1] * 100 + a[3] * 10 + a[0];
+}
+
+int more(){
+	return a[2] * 1000 + a[4] * 100 + a[5] * 10 + a[1];
+}
+
+int money(){
+	return a[2] * 10000 + a[4] * 1000 + a[3] * 100 + a[1] * 10 + a[7];
+}
+
+void DFS(int L){
+	if(L == 8){
+		if(send() + more() == money()){
+			if(a[2] == 0 || a[6] == 0) return;
+			printf("  %d %d %d %d\n", a[6], a[1], a[3], a[0]);
+			printf("+ %d %d %d %d\n", a[2], a[4], a[5], a[1]);
+			printf("---------\n");
+			printf("%d %d %d %d %d\n", a[2], a[4], a[3], a[1], a[7]);
 		}
-		cnt++;
-		puts("");
 	}
 	else{
-		for(int i = 1; i <= n; i++){
+		for(int i = 0; i < 10; i++){
 			if(ch[i] == 0){
-				res[L] = a[i];
+				a[L] = i;
 				ch[i] = 1;
 				DFS(L + 1);
 				ch[i] = 0;
@@ -31,14 +44,6 @@ int DFS(int L){
 
 int main()
 {	
-	scanf("%d %d", &n, &r);
-	for(int i = 1; i <= n; i++){
-		scanf("%d", &a[i]);
-	}
-	
 	DFS(0);
-	
-	printf("%d\n", cnt);
-	
 	return 0;
 }
