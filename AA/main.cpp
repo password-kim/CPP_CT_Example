@@ -6,44 +6,41 @@
 #include <queue>
 using namespace std;
 
-int a[10], ch[10];
+int n, res = -2147000000;
+vector<int> T, P;
 
-int send(){
-	return a[6] * 1000 + a[1] * 100 + a[3] * 10 + a[0];
-}
-
-int more(){
-	return a[2] * 1000 + a[4] * 100 + a[5] * 10 + a[1];
-}
-
-int money(){
-	return a[2] * 10000 + a[4] * 1000 + a[3] * 100 + a[1] * 10 + a[7];
-}
-
-void DFS(int L){
-	if(L == 8){
-		if(send() + more() == money()){
-			if(a[2] == 0 || a[6] == 0) return;
-			printf("  %d %d %d %d\n", a[6], a[1], a[3], a[0]);
-			printf("+ %d %d %d %d\n", a[2], a[4], a[5], a[1]);
-			printf("---------\n");
-			printf("%d %d %d %d %d\n", a[2], a[4], a[3], a[1], a[7]);
+void DFS(int L, int sum){
+	if(L == n + 1){
+		if(sum > res){
+			res = sum;
 		}
 	}
 	else{
-		for(int i = 0; i < 10; i++){
-			if(ch[i] == 0){
-				a[L] = i;
-				ch[i] = 1;
-				DFS(L + 1);
-				ch[i] = 0;
-			}
+		if(L + T[L] <= n + 1){
+			DFS(L + T[L], sum + P[L]);
 		}
+		DFS(L + 1, sum);
 	}
 }
 
 int main()
 {	
-	DFS(0);
+	ios_base::sync_with_stdio(false);
+	
+	int a, b;
+	cin >> n;
+	T.push_back(0);
+	P.push_back(0);
+	
+	for(int i = 0; i < n; i++){
+		cin >> a >> b;
+		T.push_back(a);
+		P.push_back(b);
+	}
+	
+	DFS(1, 0);
+	
+	cout << res;
+	
 	return 0;
 }
