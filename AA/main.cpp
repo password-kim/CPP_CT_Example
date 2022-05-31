@@ -6,41 +6,58 @@
 #include <queue>
 using namespace std;
 
-int n, res = -2147000000;
-vector<int> T, P;
+int a[20], op[5], n, maxi = -2147000000, mini = 2147000000;
 
-void DFS(int L, int sum){
-	if(L == n + 1){
-		if(sum > res){
-			res = sum;
+void DFS(int L, int res){
+	if(L == n){
+		if(res > maxi){
+			maxi = res;
+		}
+		if(res < mini){
+			mini = res;
 		}
 	}
 	else{
-		if(L + T[L] <= n + 1){
-			DFS(L + T[L], sum + P[L]);
+		if(op[0] > 0){
+			op[0]--;
+			DFS(L + 1, res + a[L]);
+			op[0]++;
 		}
-		DFS(L + 1, sum);
+		if(op[1] > 0){
+			op[1]--;
+			DFS(L + 1, res - a[L]);
+			op[1]++;
+		}
+		if(op[2] > 0){
+			op[2]--;
+			DFS(L + 1, res * a[L]);
+			op[2]++;
+		}
+		if(op[3] > 0){
+			op[3]--;
+			DFS(L + 1, res / a[L]);
+			op[3]++;
+		}
 	}
+	
 }
 
 int main()
 {	
-	ios_base::sync_with_stdio(false);
+	int i;
+	scanf("%d", &n);
 	
-	int a, b;
-	cin >> n;
-	T.push_back(0);
-	P.push_back(0);
-	
-	for(int i = 0; i < n; i++){
-		cin >> a >> b;
-		T.push_back(a);
-		P.push_back(b);
+	for(i = 0; i < n; i++){
+		scanf("%d", &a[i]);
 	}
 	
-	DFS(1, 0);
+	for(i = 0; i < 4; i++){
+		scanf("%d", &op[i]);
+	}
 	
-	cout << res;
+	DFS(1, a[0]);
+	
+	printf("%d\n%d\n", maxi, mini);
 	
 	return 0;
 }
