@@ -6,37 +6,33 @@
 #include <queue>
 using namespace std;
 
-int a[20], op[5], n, maxi = -2147000000, mini = 2147000000;
+vector<pair<int, int> > pz;
+vector<pair<int, int> > hs;
 
-void DFS(int L, int res){
-	if(L == n){
-		if(res > maxi){
-			maxi = res;
+int ch[20], m, res = 2147000000, dis, sum = 0;
+
+void DFS(int L, int s){
+	if(L == m){
+		sum = 0;
+		for(int i = 0; i < hs.size(); i++){
+			int x1 = hs[i].first;
+			int y1 = hs[i].second;
+			dis = 2147000000;
+			for(int j = 0; j < m; j++){
+				int x2 = pz[ch[j]].first;
+				int y2 = pz[ch[j]].second;
+				dis = min(dis, abs(x1 - x2) + abs(y1 - y2));
+			}
+			sum = sum + dis;
 		}
-		if(res < mini){
-			mini = res;
+		if(sum < res){
+			res = sum;
 		}
 	}
 	else{
-		if(op[0] > 0){
-			op[0]--;
-			DFS(L + 1, res + a[L]);
-			op[0]++;
-		}
-		if(op[1] > 0){
-			op[1]--;
-			DFS(L + 1, res - a[L]);
-			op[1]++;
-		}
-		if(op[2] > 0){
-			op[2]--;
-			DFS(L + 1, res * a[L]);
-			op[2]++;
-		}
-		if(op[3] > 0){
-			op[3]--;
-			DFS(L + 1, res / a[L]);
-			op[3]++;
+		for(int i = s; i < pz.size(); i++){
+			ch[L] = i;
+			DFS(L + 1, i + 1);
 		}
 	}
 	
@@ -44,20 +40,27 @@ void DFS(int L, int res){
 
 int main()
 {	
-	int i;
-	scanf("%d", &n);
+	ios_base::sync_with_stdio(false);
 	
-	for(i = 0; i < n; i++){
-		scanf("%d", &a[i]);
+	int n, a;
+	cin>>n>>m;
+	for(int i = 1; i <= n; i++){
+		for(int j = 1; j <= n; j++){
+			cin>>a;
+			if(a == 1){
+				hs.push_back(make_pair(i, j));
+			}
+			else{
+				if(a == 2){
+					pz.push_back(make_pair(i, j));
+				}
+			}
+		}
 	}
 	
-	for(i = 0; i < 4; i++){
-		scanf("%d", &op[i]);
-	}
+	DFS(0, 0);
 	
-	DFS(1, a[0]);
-	
-	printf("%d\n%d\n", maxi, mini);
-	
+	cout << res;
+
 	return 0;
 }
