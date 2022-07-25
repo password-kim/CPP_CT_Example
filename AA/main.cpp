@@ -1,22 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int dy[101];
-
 int main()
-{	
+{
 	ios_base::sync_with_stdio(false);
-	int n;
-	cin>>n;
+	int n, i, j, res = 0;
+	cin >> n;
+	vector<int> arr(n + 1), dy(n + 1);
 	
-	dy[1] = 1;
-	dy[2] = 2;
-	
-	for(int i = 3; i <= n + 1; i++){
-		dy[i] = dy[i - 1] + dy[i - 2];
+	for(i = 1; i <= n; i++){
+		cin >> arr[i];
 	}
 	
-	cout << dy[n + 1] << endl;
+	dy[1] = 1;
+	
+	for(i = 2; i <= n; i++){
+		int max = 0;
+		for(j = i - 1; j >= 1; j--){
+			if(arr[j] < arr[i] && dy[j] > max){
+				max = dy[j];
+			}
+		}
+		dy[i] = max + 1;
+		if(dy[i] > res){
+			res = dy[i];
+		}
+	}
+	
+	cout << res;
+	
 	
 	return 0;
 }
